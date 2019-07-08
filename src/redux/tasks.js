@@ -9,11 +9,12 @@ export const Tasks = (state = {
         case ActionTypes.ADD_TASKS:
             return { ...state, isLoading: false, errMess: null, tasks: action.paylaod };
 
-        case ActionTypes.TASKS_LOADING:
-            return { ...state, isLoading: true, errMess: null, tasks: [] }
-
         case ActionTypes.TASKS_FAILED:
             return { ...state, isLoading: false, errMess: action.paylaod };
+
+        case ActionTypes.ADD_TASK:
+            let task = action.paylaod;
+            return { ...state, tasks: state.tasks.concat(task) };
 
         default:
             return state;

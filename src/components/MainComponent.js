@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { Control, Form } from 'react-redux-form';
-import { Button, Row, Col, Label } from 'reactstrap';
+import TaskList from './TaskListComponent';
 import { connect } from 'react-redux';
+
+import { postTask } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
-        task: state.task
+        tasks: state.tasks
     }
 }
+const mapDispatchToProps = (dispatch) => ({
+    postTask: (todo) => dispatch(postTask(todo))
+});
 
 class Main extends Component {
 
@@ -15,22 +19,10 @@ class Main extends Component {
         return (
             <div>
                 <h1>This is a To-do list</h1>
-                <Form>
-                    <Row>
-                        <Label htmlFor="task">Task:</Label>
-                        <Col>
-                            <Control.text id="task" name="task"
-                                placeholder="Title"
-                                className="form-control" />
-                            <Button type="submit" color="primary">
-                                Add Task
-                            </Button>
-                        </Col>
-                    </Row>
-                </Form>
+                <TaskList />
             </div>
         );
     }
 }
 
-export default connect(mapStateToProps)(Main);
+export default (connect(mapStateToProps, mapDispatchToProps)(Main));
