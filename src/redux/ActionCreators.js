@@ -3,7 +3,7 @@ import { baseUrl } from '../baseUrl';
 
 export const postTask = (task) => (dispatch) => {
 
-    return fetch(baseUrl + 'task', {
+    return fetch(baseUrl + 'tasks', {
         method: "POST",
         body: JSON.stringify(task),
         headers: {

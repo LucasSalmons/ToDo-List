@@ -7,7 +7,7 @@ export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
             ...createForms({
-                task: StartingTask
+                tasks: StartingTask
             })
         }),
         applyMiddleware(thunk)
