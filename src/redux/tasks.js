@@ -11,6 +11,9 @@ export const Tasks = (state = { isLoading: true, errMess: null, tasks: [] }, act
         case ActionTypes.ADD_TASK:
             let task = action.payload;
             return { ...state, tasks: state.tasks.concat(task) };
+        case ActionTypes.DELETE_TASK:
+            console.log('delete')
+            return { ...state, tasks: state.tasks.filter(task => task !== action.payload) };
         default:
             return state;
     }
