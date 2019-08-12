@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import { Control, Form } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
 import { connect } from 'react-redux';
 import { postTask, fetchTasks, deleteTask } from '../redux/ActionCreators';
@@ -20,7 +21,25 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const RenderTask = (props) => {
-    if (props.tasks.tasks.length !== 0)
+    if (props.isLoading) {
+        return (
+            <div>
+                <div>
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if (props.errMess) {
+        return (
+            <div>
+                <div>
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    else if (props.tasks.tasks.length !== 0)
         return (
             <div>
                 <h3>Tasks</h3>
@@ -28,7 +47,7 @@ const RenderTask = (props) => {
                     {props.tasks.tasks.map((task) => {
                         return (
                             <li key={task.id}>
-                                <p>{task.taskname}</p><button onClick={() => props.deleteTask(task)}>x</button>
+                                <p onClick={() => props.deleteTask(task)}>{task.taskname}</p>
                             </li>
                         );
                     })}
@@ -62,7 +81,11 @@ class Todo extends Component {
                     />
                     <Button type="submit" color="primary">Add</Button>
                 </Form>
-                <RenderTask tasks={this.props.tasks} deleteTask={this.props.deleteTask} />
+                <RenderTask
+                    tasks={this.props.tasks}
+                    deleteTask={this.props.deleteTask}
+                    isLoading={this.props.isLoading}
+                    errMess={this.props.errMess} />
             </div>
         )
     }

@@ -31,7 +31,17 @@ export const postTask = (task) => (dispatch) => {
             alert('Your task could not be posted\nError: ' + error.message);
         });
 }
-//tasks
+
+export const addTask = (task) => ({
+    type: ActionTypes.ADD_TASK,
+    payload: task
+});
+
+export const deleteTask = (task) => ({
+    type: ActionTypes.DELETE_TASK,
+    payload: task
+});
+
 export const fetchTasks = () => (dispatch) => {
     dispatch(tasksLoading(true));
 
@@ -67,13 +77,3 @@ export const addTasks = (tasks) => ({
     type: ActionTypes.ADD_TASKS,
     payload: tasks
 });
-
-export const addTask = (task) => ({
-    type: ActionTypes.ADD_TASK,
-    payload: task
-});
-
-export const deleteTask = (task) => ({
-    type: ActionTypes.DELETE_TASK,
-    payload: task
-})
